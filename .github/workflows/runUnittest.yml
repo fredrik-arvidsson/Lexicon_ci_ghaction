@@ -1,11 +1,28 @@
 name: Hello World
 
-on: [push]
+on:
+  push:
+    branches: [ "main"]
 
 jobs:
-  say_hello:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Say hello
-        run: echo "Hej från github actions!"
+      - name: checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up jdk
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Install dep and run tests     
+        run: mvn test
+
+            
+
+
+
+      
 
